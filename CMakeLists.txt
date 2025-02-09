@@ -15,6 +15,7 @@ if (ENABLE_BENCHMARKS)
 endif()
 
 find_package(OpenCV REQUIRED)
+find_package(vpi 3.2 REQUIRED)
 
 # TODO: Specify the path to TensorRT root dir
 set(TensorRT_DIR /home/cyrus/work/libs/TensorRT-10.0.0.6/)
@@ -38,8 +39,19 @@ target_link_libraries(benchmark YoloV8_TRT)
 add_executable(detect_object_video src/object_detection_video_stream.cpp)
 target_link_libraries(detect_object_video YoloV8_TRT)
 
+<<<<<<< Updated upstream
 add_executable(detect_object_camera src/object_detection_camera_stream.cpp)
 target_link_libraries(detect_object_camera YoloV8_TRT)
 
 # Enable debugging flags
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
+=======
+add_executable(detect_object_csi_jetson src/object_detection_csi_jetson.cpp)
+target_link_libraries(detect_object_csi_jetson YoloV8_TRT)
+
+add_executable(track_object src/object_tracking_jetson.cpp)
+target_link_libraries(track_object YoloV8_TRT vpi ${OpenCV_LIBS} opencv_core
+opencv_imgproc opencv_imgcodecs opencv_videoio)
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
+>>>>>>> Stashed changes
